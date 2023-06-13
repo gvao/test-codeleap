@@ -1,0 +1,22 @@
+.wrap {
+    background-color: #fff;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 8px 0;
+}
+
+.label {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.input {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(119, 119, 119, 1)
+}
