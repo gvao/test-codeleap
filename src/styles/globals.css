@@ -1,0 +1,20 @@
+/* variables */
+:root {
+  --bg-primary: #ddd;
+}
+
+/* reset css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: #000;
+}
