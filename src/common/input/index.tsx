@@ -1,12 +1,14 @@
-import { useId } from "react"
+
+import {InputHTMLAttributes, useId } from "react"
 import style from "./input.module.css"
 
-interface InputProps {
+type InputProps = {
     label?: string,
     placeholder?: string,
-}
+} & InputHTMLAttributes<HTMLInputElement>
 
 export const Input = ({ label, placeholder = 'John doe', ...props }: InputProps) => {
+    'use client'
     const id = useId()
 
     return (
