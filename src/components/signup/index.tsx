@@ -1,6 +1,7 @@
-import { Input } from "@/common/input";
 import styles from "./styles.module.css"
 
+import { Input } from "@/common/input";
+import { Button } from "@/common/button";
 
 export const Signup = () => (
     <div className={styles.wrap} >
@@ -9,7 +10,7 @@ export const Signup = () => (
   
       <form>
         <Input label="Please enter your username" />
-        <button type="submit">enter</button>
+        <Button type="submit">enter</Button>
       </form>
   
     </div>
