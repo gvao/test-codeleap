@@ -1,0 +1,23 @@
+.wrap {
+    width: 500px;
+    
+    background-color: #fff;
+
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    border-radius: 16px;
+}
+
+.title {
+    font-family: var(--font-roboto);
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 26px;
+    letter-spacing: 0em;
+    text-align: left;
+
+}
