@@ -5,21 +5,11 @@ import styles from "./styles.module.css"
 import { Input } from "@/common/input"
 import { Button } from "@/common/button"
 import { CardPost } from "@/common/cards"
-import { ChangeEventHandler, useState } from "react"
+import { usePostsContext } from "@/context/posts"
 
 export const ProfilePage = () => {
 
-    const [infosPost, setInfosPost] = useState({})
-
-    const onChangeInput: ChangeEventHandler<HTMLInputElement> =
-        ({ target: { id, value } }) => setInfosPost({ ...infosPost, [id]: value })
-
-    const validButton = (infosPost = {}) => {
-        const inputsFilled = Object.values(infosPost)
-            .filter(value => value !== '')
-        const isAllInputsFilled = inputsFilled.length >= 2
-        return isAllInputsFilled
-    }
+    const { posts, onChangeInput, isButtonValid } = usePostsContext()
 
     return (
         <section className={styles.wrap} >
@@ -29,6 +19,7 @@ export const ProfilePage = () => {
             </header>
 
             <main className={styles.main}>
+
                 <form className={styles.card} onSubmit={event => event.preventDefault()} >
 
                     <div className={styles.container}>
@@ -48,29 +39,24 @@ export const ProfilePage = () => {
                             onChange={onChangeInput}
                         />
 
-                        <Button isValid={validButton(infosPost)} >Create</Button>
+                        <Button isValid={isButtonValid} >Create</Button>
                     </div>
-
                 </form>
 
-                <CardPost
-                    title="My First Post at CodeLeap Network!"
-                    content="Curabitur suscipit suscipit tellus. Phasellus consectetuer vestibulum elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas egestas arcu quis ligula mattis placerat. Duis vel nibh at velit scelerisque suscipit.
+                {posts.map((post) => {
+                    const datePost = new Date(post.created_datetime)
+                    const timeAgo = getDiffDates(datePost)
 
-                    Duis lobortis massa imperdiet quam. Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Fusce a quam. Nullam vel sem. Nullam cursus lacinia erat."
-                    username="Yuri Galvão"
-                    created_datetime={'dsdbndl'}
-                />
-
-
-                <CardPost
-                    title="My second Post at CodeLeap Network!"
-                    content="Curabitur suscipit suscipit tellus. Phasellus consectetuer vestibulum elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas egestas arcu quis ligula mattis placerat. Duis vel nibh at velit scelerisque suscipit.
-
-                    Duis lobortis massa imperdiet quam. Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Fusce a quam. Nullam vel sem. Nullam cursus lacinia erat."
-                    username="Erica lima"
-                    created_datetime={""}
-                />
+                    return (
+                        <CardPost
+                            key={post.id}
+                            title={post.title}
+                            content={post.content}
+                            username={post.username}
+                            created_datetime={timeAgo || ''}
+                        />
+                    )
+                })}
 
             </main>
 
@@ -78,3 +64,45 @@ export const ProfilePage = () => {
     )
 }
 
+function getDiffDates(dateStart: Date, dateEnd = new Date()) {
+    const datePost = dateStart.getTime()
+    const now = dateEnd.getTime()
+
+    const diff = datePost - now
+
+    const date = new Date(diff)
+    const int = new Intl.RelativeTimeFormat("pt-BR", {
+        style: "short",
+        localeMatcher: "lookup",
+        numeric: "auto",
+    })
+
+    const seconds = Math.round(diff / 1000)
+    const minutes = Math.round(seconds / 60)
+    const hours = Math.round(minutes / 60)
+    const days = Math.round(hours / 24)
+
+    let typeSuggestion: 'seconds' | 'minutes' | 'hours' | 'days';
+    let data = {
+        seconds,
+        minutes,
+        hours,
+        days,
+    }
+
+    if (seconds >= -60) {
+        typeSuggestion = 'seconds'
+        return int.format(data[typeSuggestion], typeSuggestion)
+    }
+    else if (minutes >= -60) {
+        typeSuggestion = 'minutes'
+        return int.format(data[typeSuggestion], typeSuggestion)
+    }
+    else if (hours >= -24) {
+        typeSuggestion = 'hours'
+        return int.format(data[typeSuggestion], typeSuggestion)
+    }
+    
+    typeSuggestion = 'days'
+    return int.format(data[typeSuggestion], typeSuggestion)
+}
