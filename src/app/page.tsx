@@ -1,13 +1,36 @@
-import styles from '../styles/home.module.css'
+'use client'
 
-import { Signup } from "../components/signup"
+import { ProfilePage } from "@/components/profile/"
+import { useAuthContext } from "@/context/auth"
+import PostContextProvider from "@/context/posts"
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 
-export default function Home() {
-  return (
-    <section className={styles.container}>
+type ProfileProps = {
+    params: object,
+}
 
-      <Signup />
+export default function Profile({ params, ...props }: ProfileProps) {
+    const {
+        isAuthenticated,
+    } = useAuthContext()
 
-    </section>
-  )
+    const router = useRouter()
+
+    useEffect(() => {
+
+        if (!isAuthenticated) router.push('/profile/signup')
+
+    }, [])
+
+    return (
+        <>
+            {isAuthenticated && (
+                <PostContextProvider>
+                    <ProfilePage />
+                </PostContextProvider>
+
+            )}
+        </>
+    )
 }

@@ -1,3 +1,4 @@
+import AuthContextProvider from '@/context/auth'
 import '../styles/globals.css'
 import { Roboto } from 'next/font/google'
 
@@ -18,9 +19,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={roboto.className}>
-        {children}
-      </body>
+      <AuthContextProvider>
+
+        <body className={roboto.className}>
+          {children}
+        </body>
+
+      </AuthContextProvider>
     </html>
   )
 }
