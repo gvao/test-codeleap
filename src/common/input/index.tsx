@@ -1,15 +1,17 @@
-
+'use client'
 import {InputHTMLAttributes, useId } from "react"
 import style from "./input.module.css"
 
 type InputProps = {
+    id?: string,
     label?: string,
     placeholder?: string,
 } & InputHTMLAttributes<HTMLInputElement>
 
-export const Input = ({ label, placeholder = 'John doe', ...props }: InputProps) => {
-    'use client'
-    const id = useId()
+export const Input = ({ label, placeholder = 'John doe', id = '',  ...props }: InputProps) => {
+    const idRandom = useId()
+
+    if (!id) id = idRandom
 
     return (
         <div className={style.wrap} >
