@@ -1,10 +1,25 @@
+'use client'
+
 import styles from "./styles.module.css"
 
 import { Input } from "@/common/input"
 import { Button } from "@/common/button"
 import { CardPost } from "@/common/cards"
+import { ChangeEventHandler, useState } from "react"
 
 export const ProfilePage = () => {
+
+    const [infosPost, setInfosPost] = useState({})
+
+    const onChangeInput: ChangeEventHandler<HTMLInputElement> =
+        ({ target: { id, value } }) => setInfosPost({ ...infosPost, [id]: value })
+
+    const validButton = (infosPost = {}) => {
+        const inputsFilled = Object.values(infosPost)
+            .filter(value => value !== '')
+        const isAllInputsFilled = inputsFilled.length >= 2
+        return isAllInputsFilled
+    }
 
     return (
         <section className={styles.wrap} >
@@ -14,22 +29,26 @@ export const ProfilePage = () => {
             </header>
 
             <main className={styles.main}>
-                <form className={styles.card} >
+                <form className={styles.card} onSubmit={event => event.preventDefault()} >
 
                     <div className={styles.container}>
                         <h2>What’s on your mind?</h2>
 
                         <Input
+                            id='title'
                             label='Title'
                             placeholder="hello world"
+                            onChange={onChangeInput}
                         />
 
                         <Input
+                            id='content'
                             label='Content'
                             placeholder="content here"
+                            onChange={onChangeInput}
                         />
 
-                        <Button isValid >Create</Button>
+                        <Button isValid={validButton(infosPost)} >Create</Button>
                     </div>
 
                 </form>
