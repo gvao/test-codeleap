@@ -1,15 +1,14 @@
 
 const urlBase = 'https://dev.codeleap.co.uk/careers/'
 
-export const careersPost = (path: string, body = {}, options = {
+export const careersGet = (path = '') => fetcher(urlBase + path)
+
+export const careersPost = (path = "", body = {}, options = {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
     },
 }): Promise<Response> => fetch(urlBase + path, { ...options, body: JSON.stringify(body) })
-
-
-export const careersGet = (path: string) => fetcher(urlBase + path)
 
 
 async function fetcher(
