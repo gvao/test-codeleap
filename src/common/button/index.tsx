@@ -2,7 +2,6 @@ import styles from "./styles.module.css"
 
 type ButtonProps = {
     isValid?: boolean,
-    // type?: string,
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = ({ children, type, isValid = false, ...props }: ButtonProps) => (
