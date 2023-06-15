@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEventHandler, FormEvent, createContext, useContext, useEffect, useState } from "react";
+import { ChangeEventHandler, FormEvent, createContext, useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import { careersGet, careersPost } from "@/services/codeleap";
 import { AuthContextProviderProps, ReturnUseAuthContext } from "./types"
@@ -15,17 +15,7 @@ export const useAuthContext = (): ReturnUseAuthContext => {
 
 export default function AuthContextProvider({ children }: AuthContextProviderProps) {
     const router = useRouter();
-
     const [username, setUsername] = useState<string>('');
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
-
-    useEffect(() => {
-        const usernameLocalStorage = localStorage.getItem('username') || ''
-
-        if (!usernameLocalStorage) router.push(`/profile/signup`)
-
-        setUsername(usernameLocalStorage)
-    }, [])
 
     const onInput: ChangeEventHandler<HTMLInputElement> = ({ target: { value } }) => setUsername(value)
 
@@ -50,7 +40,6 @@ export default function AuthContextProvider({ children }: AuthContextProviderPro
 
 
         localStorage.setItem('username', username)
-        setIsAuthenticated(true)
         router.push(`/`)
     }
 
@@ -59,7 +48,6 @@ export default function AuthContextProvider({ children }: AuthContextProviderPro
             username,
             onInput,
             onSubmit,
-            isAuthenticated,
         }}>
             {children}
         </AuthContext.Provider>

@@ -4,7 +4,7 @@ export type ReturnUseAuthContext = {
     username: string,
     onInput: ChangeEventHandler<HTMLInputElement> | undefined,
     onSubmit: FormEventHandler<HTMLFormElement> | undefined
-    isAuthenticated: boolean,
+    // isAuthenticated: boolean,
 }
 
 export type AuthContextProviderProps = {
