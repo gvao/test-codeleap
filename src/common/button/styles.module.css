@@ -27,3 +27,9 @@
     opacity: .6;
     cursor: none;
 }
+
+.button-action {
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+}

@@ -1,8 +1,6 @@
 import styles from "./styles.module.css"
+import { ButtonProps } from "./types"
 
-type ButtonProps = {
-    isValid?: boolean,
-} & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = ({ children, type, isValid = false, ...props }: ButtonProps) => (
     <div
@@ -18,4 +16,10 @@ export const Button = ({ children, type, isValid = false, ...props }: ButtonProp
         </button>
 
     </div>
+)
+
+export const ButtonAction = ({ children, ...props }: ButtonProps)=> (
+    <button className={styles["button-action"]} {...props} >
+        { children }
+    </button>
 )
