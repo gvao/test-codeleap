@@ -29,6 +29,7 @@ export const Signup = () => {
           label="Please enter your username"
           onChange={onInput}
           value={username || ''}
+          autoFocus
         />
         <Button type="submit" isValid={!!username} >enter</Button>
       </form>
