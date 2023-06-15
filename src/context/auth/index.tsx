@@ -1,9 +1,10 @@
 'use client'
 
-import { ChangeEventHandler, FormEvent, createContext, useContext, useState } from "react";
+import { ChangeEventHandler, FormEvent, createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { careersGet, careersPost } from "@/services/codeleap";
 import { AuthContextProviderProps, ReturnUseAuthContext } from "./types"
+import { getLocalStorage } from "@/functions/localstorage";
 
 const AuthContext = createContext<ReturnUseAuthContext | undefined>(undefined)
 export const useAuthContext = (): ReturnUseAuthContext => {
@@ -16,6 +17,12 @@ export const useAuthContext = (): ReturnUseAuthContext => {
 export default function AuthContextProvider({ children }: AuthContextProviderProps) {
     const router = useRouter();
     const [username, setUsername] = useState<string>('');
+
+    useEffect(() => {
+        const valueLocalstorage = getLocalStorage('username')
+
+        if (!!valueLocalstorage) setUsername(valueLocalstorage)
+    }, [])
 
     const onInput: ChangeEventHandler<HTMLInputElement> = ({ target: { value } }) => setUsername(value)
 
