@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 import { useAuthContext } from "@/context/auth"
 import styles from "./styles.module.css"
 import { ButtonAction } from "@/common/button"
@@ -17,26 +19,28 @@ export const CardPost = ({ title, content, username: usernameProp, created_datet
     } = useAuthContext()
 
     const actionConfirme: MouseEventHandler<HTMLButtonElement> = ({ target }) => {
-        console.log(target.alt)
+        console.log(target)
     }
+
+    const isUsernameMatch = username === usernameProp
 
     return (
         <article className={styles.card}>
             <header className={styles.header}>
                 <h2>{title}</h2>
 
-                {username === usernameProp && (
+                {isUsernameMatch && (
                     <div className={styles.action}>
                         <ButtonAction
                             onClick={actionConfirme}
                         >
-                            <img src="/edit.png" alt="edit post" />
+                            <Image width={30} height={30} src="/edit.png" alt="edit post" />
                         </ButtonAction>
 
                         <ButtonAction
                             onClick={actionConfirme}
                         >
-                            <img src="/delete-forever.png" alt="delete post" />
+                            <Image width={30} height={30} src="/delete-forever.png" alt="delete post" />
                         </ButtonAction>
                     </div>
                 )}
