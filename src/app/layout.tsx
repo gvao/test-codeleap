@@ -17,11 +17,11 @@ const roboto = Roboto({
 //   description: 'Created by Yuri Galvão',
 // }
 
-export default function RootLayout({
-  children,
-}: {
+type RootLayoutProps = {
   children: React.ReactNode
-}) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
 
   const pathname = usePathname()
   const isPublic: boolean = checkPageIsPublic(pathname)
@@ -31,9 +31,9 @@ export default function RootLayout({
       <AuthContextProvider>
 
         <body className={roboto.className}>
-          
+
           {isPublic && children}
-          {!isPublic && (<PrivatePage>{children}</PrivatePage>) }
+          {!isPublic && (<PrivatePage>{children}</PrivatePage>)}
 
         </body>
 

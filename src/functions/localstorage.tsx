@@ -1,19 +1,19 @@
 
+'use client'
+
 export const getLocalStorage = (key: string) => {
-    'use client'
-    const value = localStorage.getItem(key)
+    const value = window?.localStorage.getItem(key)
     return value!
 }
 
 export const setLocalStorage = (key: string, data: any = null) => {
-    'use client'
     const value = JSON.stringify(data, null, 2)
-    
     return localStorage.setItem(key, value)
 }
 
 export function checkTokenLocalStorage(key = 'username') {
+    if (typeof window === 'undefined') return 
+    
     const valueLocalStorage = getLocalStorage(key)
-
     return !!valueLocalStorage
 }
