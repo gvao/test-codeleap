@@ -15,12 +15,16 @@
 .main {
     min-height: 90vh;
     background-color: #fff;
+    
+    padding: 24px;
+}
 
+.posts-list {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 24px;
-    padding: 24px;
+    margin-top: 24px;
 }
 
 .card {
@@ -52,4 +56,10 @@
 .action {
     display: flex;
     gap: 34px;
+}
+
+.button-form {
+
+    justify-content: flex-end;
+    display: flex;
 }

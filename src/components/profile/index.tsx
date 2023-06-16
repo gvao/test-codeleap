@@ -6,10 +6,11 @@ import { Input } from "@/common/input"
 import { Button } from "@/common/button"
 import { CardPost } from "@/common/cards"
 import { usePostsContext } from "@/context/posts"
+import { getDiffDates } from "@/utils/date"
 
 export const ProfilePage = () => {
 
-    const { posts, onChangeInput, isButtonValid } = usePostsContext()
+    const { posts } = usePostsContext()
 
     return (
         <section className={styles.wrap} >
@@ -20,44 +21,27 @@ export const ProfilePage = () => {
 
             <main className={styles.main}>
 
-                <form className={styles.card} onSubmit={event => event.preventDefault()} >
+                <FormCard />
 
-                    <div className={styles.container}>
-                        <h2>What’s on your mind?</h2>
+                <ul className={styles['posts-list']} >
+                    {posts.map((post) => {
+                        const datePost = new Date(post.created_datetime)
+                        const timeAgo = getDiffDates(datePost)
 
-                        <Input
-                            id='title'
-                            label='Title'
-                            placeholder="hello world"
-                            onChange={onChangeInput}
-                        />
+                        return (
+                            <li key={post.id} className={styles.card}>
+                                <CardPost
+                                    id={post.id}
+                                    title={post.title}
+                                    content={post.content}
+                                    username={post.username}
+                                    created_datetime={timeAgo || ''}
+                                />
+                            </li>
+                        )
+                    })}
 
-                        <Input
-                            id='content'
-                            label='Content'
-                            placeholder="content here"
-                            onChange={onChangeInput}
-                        />
-
-                        <Button isValid={isButtonValid} >Create</Button>
-                    </div>
-                </form>
-
-                {posts.map((post) => {
-                    const datePost = new Date(post.created_datetime)
-                    const timeAgo = getDiffDates(datePost)
-
-                    return (
-                        <CardPost
-                            key={post.id}
-                            id={post.id}
-                            title={post.title}
-                            content={post.content}
-                            username={post.username}
-                            created_datetime={timeAgo || ''}
-                        />
-                    )
-                })}
+                </ul>
 
             </main>
 
@@ -65,45 +49,37 @@ export const ProfilePage = () => {
     )
 }
 
-function getDiffDates(dateStart: Date, dateEnd = new Date()) {
-    const datePost = dateStart.getTime()
-    const now = dateEnd.getTime()
+const FormCard = () => {
+    const { onChangeInput, isButtonValid, newPost } = usePostsContext()
 
-    const diff = datePost - now
+    return (
+        <form className={styles.card} onSubmit={event => {
+            event.preventDefault()
+            newPost()
+        }} >
 
-    const date = new Date(diff)
-    const int = new Intl.RelativeTimeFormat("pt-BR", {
-        style: "short",
-        localeMatcher: "lookup",
-        numeric: "auto",
-    })
+            <div className={styles.container}>
+                <h2>What’s on your mind?</h2>
 
-    const seconds = Math.round(diff / 1000)
-    const minutes = Math.round(seconds / 60)
-    const hours = Math.round(minutes / 60)
-    const days = Math.round(hours / 24)
+                <Input
+                    id='title'
+                    label='Title'
+                    placeholder="hello world"
+                    onChange={onChangeInput}
+                />
 
-    let typeSuggestion: 'seconds' | 'minutes' | 'hours' | 'days';
-    let data = {
-        seconds,
-        minutes,
-        hours,
-        days,
-    }
+                <Input
+                    id='content'
+                    label='Content'
+                    placeholder="content here"
+                    onChange={onChangeInput}
+                />
 
-    if (seconds >= -60) {
-        typeSuggestion = 'seconds'
-        return int.format(data[typeSuggestion], typeSuggestion)
-    }
-    else if (minutes >= -60) {
-        typeSuggestion = 'minutes'
-        return int.format(data[typeSuggestion], typeSuggestion)
-    }
-    else if (hours >= -24) {
-        typeSuggestion = 'hours'
-        return int.format(data[typeSuggestion], typeSuggestion)
-    }
-    
-    typeSuggestion = 'days'
-    return int.format(data[typeSuggestion], typeSuggestion)
+                <div className={styles['button-form']} >
+                    <Button isValid={isButtonValid} >Create</Button>
+                </div>
+
+            </div>
+        </form>
+    )
 }
