@@ -1,7 +1,6 @@
 const ROUTES_APP = {
     public: {
-        signup: '/profile/signup',
-        signin: '/profile/signin',
+        signup: '/signup',
     },
     private: {
         logout: '/profile/logout',
