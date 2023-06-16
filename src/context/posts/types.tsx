@@ -7,7 +7,7 @@ export type PostsContextProps = {
 export type Post = {
     id: number,
     title: string,
-    content: string,
+    content?: string,
     username: string,
     created_datetime: string,
 }
@@ -16,4 +16,6 @@ export type ReturnUsePostsContext = {
     posts: Post[],
     isButtonValid: boolean,
     onChangeInput: ChangeEventHandler<HTMLInputElement>,
+    newPost: () => void,
 }
+
