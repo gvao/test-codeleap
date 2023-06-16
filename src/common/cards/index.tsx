@@ -1,26 +1,16 @@
+import styles from "./styles.module.css"
+
 import Image from 'next/image'
 
 import { useAuthContext } from "@/context/auth"
-import styles from "./styles.module.css"
-import { ButtonAction } from "@/common/button"
-import { MouseEventHandler } from "react"
+import { Link } from "@/common/link"
+import { CardPostProps } from './types'
 
-type CardPostProps = {
-    title: string,
-    content?: string,
-    username: string,
-    created_datetime: string,
-}
-
-export const CardPost = ({ title, content, username: usernameProp, created_datetime }: CardPostProps) => {
+export const CardPost = ({ id, title, content, username: usernameProp, created_datetime }: CardPostProps) => {
 
     const {
         username,
     } = useAuthContext()
-
-    const actionConfirme: MouseEventHandler<HTMLButtonElement> = ({ target }) => {
-        console.log(target)
-    }
 
     const isUsernameMatch = username === usernameProp
 
@@ -31,17 +21,13 @@ export const CardPost = ({ title, content, username: usernameProp, created_datet
 
                 {isUsernameMatch && (
                     <div className={styles.action}>
-                        <ButtonAction
-                            onClick={actionConfirme}
-                        >
+                        <Link href={`?popup=edit&id_post=${id}`}>
                             <Image width={30} height={30} src="/edit.png" alt="edit post" />
-                        </ButtonAction>
+                        </Link>
 
-                        <ButtonAction
-                            onClick={actionConfirme}
-                        >
+                        <Link href={`?popup=delete&id_post=${id}`}>
                             <Image width={30} height={30} src="/delete-forever.png" alt="delete post" />
-                        </ButtonAction>
+                        </Link>
                     </div>
                 )}
             </header>
