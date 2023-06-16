@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, MouseEvent, MouseEventHandler } from "react";
 
 export type PostsContextProps = {
     children: React.ReactNode
@@ -13,7 +13,7 @@ export type Post = {
 }
 
 export type ReturnUsePostsContext = {
-    posts: Post[];
-    onChangeInput: ChangeEventHandler<HTMLInputElement>;
-    isButtonValid: boolean;
-};
+    posts: Post[],
+    isButtonValid: boolean,
+    onChangeInput: ChangeEventHandler<HTMLInputElement>,
+}
