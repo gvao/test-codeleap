@@ -31,7 +31,11 @@ export const Signup = () => {
           value={username || ''}
           autoFocus
         />
-        <Button type="submit" isValid={!!username} >enter</Button>
+
+        <div className={styles["signup-button"]}>
+          <Button type="submit" isValid={!!username} >enter</Button>
+        </div>
+
       </form>
 
     </div>

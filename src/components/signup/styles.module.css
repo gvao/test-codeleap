@@ -21,3 +21,8 @@
     text-align: left;
 
 }
+
+.signup-button {
+    display: flex;
+    justify-content: flex-end;
+}
