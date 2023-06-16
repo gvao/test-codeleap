@@ -50,6 +50,7 @@ export const ProfilePage = () => {
                     return (
                         <CardPost
                             key={post.id}
+                            id={post.id}
                             title={post.title}
                             content={post.content}
                             username={post.username}
