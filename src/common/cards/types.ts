@@ -4,5 +4,4 @@ export type CardPostProps = {
     content?: string,
     username: string,
     created_datetime: string,
-    key: number | string,
 }
