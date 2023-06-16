@@ -1,11 +1,6 @@
-.wrap {
-    width: 100%;
-
-    margin-top: 8px;
-
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+.invalid {
+    opacity: .6;
+    cursor: none;
 }
 
 .button {
@@ -16,20 +11,25 @@
 
     font-size: 16px;
     font-weight: 700;
-    
-    border: none;
+
+    border: 1px solid rgba(153, 153, 153, 1);
     border-radius: 8px;
 
     cursor: pointer;
-}
-
-.invalid {
-    opacity: .6;
-    cursor: none;
 }
 
 .button-action {
     background-color: inherit;
     border: none;
     cursor: pointer;
+}
+
+.fill-red {
+    background: red;
+    color: #fff;
+}
+
+.fill-none {
+    background: rgba(255, 255, 255, 1);
+    color: #000;
 }

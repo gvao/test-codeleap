@@ -1,4 +1,7 @@
+import { ButtonHTMLAttributes } from "react";
+
 export type ButtonProps = {
     isValid?: boolean,
     children?: React.ReactNode,
-} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+    fill?: null | 'none' | 'red',
+} & ButtonHTMLAttributes<HTMLButtonElement>
