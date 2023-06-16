@@ -18,4 +18,3 @@ export type ReturnUsePostsContext = {
     onChangeInput: ChangeEventHandler<HTMLInputElement>,
     newPost: () => void,
 }
-

@@ -8,19 +8,32 @@ export const careersPost = (path = "", body = {}, options = {
     headers: {
         "Content-Type": "application/json"
     },
-}): Promise<Response> => fetch(urlBase + path, { ...options, body: JSON.stringify(body) })
+}) => fetcher(urlBase + path, body, { ...options })
 
+export const careersPath = (id = "", body = {}, options = {
+    method: "PATH",
+    headers: {
+        "Content-Type": "application/json"
+    },
+}) => fetcher(`${urlBase}${id}`, body,  { ...options })
+
+export const careersDelete = (id = "", body = {}, options = {
+    method: "DELETE",
+    headers: {
+        "Content-Type": "application/json"
+    },
+}) => fetcher(`${urlBase}${id}`, body,  { ...options })
 
 async function fetcher(
     url: string,
+    body?:object | null,
     options = {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
         },
     },
-    body = {},
-) {
+): Promise<Response> {
     try {
         const response = await fetch(url, { ...options, body: options.method === 'GET' ? null : JSON.stringify(body) })
 
@@ -29,5 +42,6 @@ async function fetcher(
         return response
     } catch (err) {
         console.error(err)
+        throw err
     }
 }
