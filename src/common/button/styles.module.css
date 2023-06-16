@@ -29,6 +29,11 @@
     color: #fff;
 }
 
+.fill-green {
+    background: green;
+    color: #fff;
+}
+
 .fill-none {
     background: rgba(255, 255, 255, 1);
     color: #000;
